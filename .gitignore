@@ -1,2 +1,5 @@
 # Since the script now can generate .txt-files they shall be ignored by Git
 *.txt
+
+# Don't ignore the example files
+!/examples/*.txt
