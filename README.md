@@ -18,9 +18,15 @@ user:bob.example@domain.com
 --------------------------------------------------------
 ```
 
+### Requiremenets
+
+To use this script you need to have the correct permissions to use the script. The permissions that you currently need is:
+
+- ```roles/resourcemanager.projectIamAdmin```- Your user account has the permission to use ```gcloud projects get-iam-policy```.
+
 ## Upcoming updates
 
 - Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Friday 28 november 10:25
+> Last updated: Friday 28 november 10:38
