@@ -1,6 +1,6 @@
-# gcloud-owner (v1.0.0)
+# gcloud-owner (v1.1.0)
 
-Automate the process of managing GCP. This is the first official version (version 1.0.0)!
+Automate the process of managing GCP. In this version (v1.1.0) you can store the owners of GCP-projects in dedicated files!
 
 ## How to use
 
@@ -17,6 +17,20 @@ user:alice.example@domain.com
 user:bob.example@domain.com
 --------------------------------------------------------
 ```
+
+5. If you want to store this information in a dedicated file ```<YOUR-GCP-PROJECT-ID>_owners.txt``` answer "yes" or "y" when asked and the file will be created in the same directory as where you run this script.
+
+```sh
+Do you want to save the results to a file? (y/n): yes
+```
+
+or
+
+```sh
+Do you want to save the results to a file? (y/n): y
+```
+
+*If you don't want to save it in a file simply answer anything but "yes" or "y".*
 
 ### Requiremenets
 
@@ -39,4 +53,4 @@ Here is a table of all the versions published so far...
 - Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Friday 28 november 10:38
+> Last updated: Friday 28 november 15:45
