@@ -54,6 +54,7 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
             echo "No members found with the '$ROLE_TO_FIND' role."
         else
             echo "Members with the '$ROLE_TO_FIND' role in project '$PROJECT_ID':"
+            echo
             gcloud projects get-iam-policy "$PROJECT_ID" \
                 --flatten="bindings[].members" \
                 --filter="bindings.role:$ROLE_TO_FIND" \
