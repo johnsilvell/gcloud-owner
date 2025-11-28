@@ -32,6 +32,8 @@ Do you want to save the results to a file? (y/n): y
 
 *If you don't want to save it in a file simply answer anything but "yes" or "y".*
 
+You can find examples of these .txt-files in the directory "[examples](./examples)".
+
 ### Requiremenets
 
 To use this script you need to have the correct permissions to use the script. The permissions that you currently need is:
@@ -45,7 +47,7 @@ Here is a table of all the versions published so far...
 | Version | Published | Comment |
 | ------- | --------- | ------- |
 | v1.0.0 | 28th november 2025 | The first version. Checks for the owners and prints them in the terminal. |
-| v1.1.0 | TBA | Will allow the user to get the information in a dedicated file. |
+| v1.1.0 | TBA | Will allow the user to get the information in a dedicated txt-file. |
 | v1.1.X | TBA | TBA |
 
 ## Upcoming updates
@@ -53,4 +55,4 @@ Here is a table of all the versions published so far...
 - Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Friday 28 november 15:45
+> Last updated: Friday 28 november 15:58
