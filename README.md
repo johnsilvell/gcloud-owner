@@ -24,6 +24,16 @@ To use this script you need to have the correct permissions to use the script. T
 
 - ```roles/resourcemanager.projectIamAdmin```- Your user account has the permission to use ```gcloud projects get-iam-policy```.
 
+## Version history
+
+Here is a table of all the versions published so far...
+
+| Version | Published | Comment |
+| ------- | --------- | ------- |
+| v1.0.0 | 28th november 2025 | The first version. Checks for the owners and prints them in the terminal. |
+| v1.1.0 | TBA | Will allow the user to get the information in a dedicated file. |
+| v1.1.X | TBA | TBA |
+
 ## Upcoming updates
 
 - Store the owners in dedicated files.
