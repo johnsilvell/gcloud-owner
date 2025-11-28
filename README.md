@@ -1,12 +1,12 @@
-# gcloud-owner
+# gcloud-owner (v1.0.0)
 
-Bash-script that gets out the owners of projects on Google Cloud.
+Automate the process of managing GCP. This is the first official version (version 1.0.0)!
 
 ## How to use
 
 1. Download [gc-owner.sh](./gc-owner.sh) and make it executable with ```chmod +x gc-owner.sh``` in your terminal in the same directory as the file.
 2. Ensure that Google Cloud CLI is installed and authentizised with ```gcloud auth login --update-adc```.
-3. Execute the script with ```./gc-owner.sh <YOUR-PROJECT-ID>```.
+3. Execute the script with ```./gc-owner.sh <YOUR-GCP-PROJECT-ID>```.
 4. All the owners that are not inherited should now be listed in your terminal similiar to something like this:
 
 ```sh
