@@ -9,6 +9,12 @@ Automate the process of managing GCP. This is the first official version (versio
 3. Execute the script with ```./gc-owner.sh <YOUR-GCP-PROJECT-ID>```.
 4. All the owners that are not inherited should now be listed in your terminal similiar to something like this:
 
+### Requiremenets
+
+To use this script you need to have the correct permissions to use the script. The permissions that you currently need is:
+
+- ```roles/resourcemanager.projectIamAdmin```- Your user account has the permission to use ```gcloud projects get-iam-policy```.
+
 ```sh
 Setting project to: <YOUR-GCP-PROJECT-ID>
 Searching for members with the 'roles/owner' role in project '<YOUR-GCP-PROJECT-ID>'...
@@ -23,4 +29,4 @@ user:bob.example@domain.com
 - Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Friday 28 november 10:25
+> Last updated: Friday 28 november 10:38
