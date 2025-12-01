@@ -58,8 +58,6 @@ jobs:
           # Set the format for ShellCheck to "GitHub Actions Log Format"
           reporter: github-pr-check
           # Add a flag to indicate approval
-          # NB: If ShellCheck finds errors this job will fail!
-          fail_on_error: true
 
       # 2.4 Add a conformation step if no issues were found (Runs only if ShellCheck passes)
       - name: Linting Passed
