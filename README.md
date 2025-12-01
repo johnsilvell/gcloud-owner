@@ -52,7 +52,7 @@ To use this script you need to have the correct permissions to use the script. T
 
 The script will of course always be tested during development but for extra security this repo uses GitHub Actions for CI/CD-integration. However, due to security vulnerabilities we currently only do lint-testing in its current state since we don't want to have our Google Cloud credidentials uploaded on GitHub.
 
-If you would like to review or analyze our current GitHub Actions-setup please check [.github/workflows](./github/workflows).
+If you would like to review or analyze our current GitHub Actions-setup please check [.github/workflows](./.github/workflows).
 
 ## Version history
 
