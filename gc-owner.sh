@@ -28,7 +28,7 @@ IAM_POLICY=$(gcloud projects get-iam-policy "$PROJECT_ID" --format=json)
 # 3. Parse the IAM policy to find members with the specified role
 OWNER_MEMBERS=$(gcloud projects get-iam-policy "$PROJECT_ID" \
     --flatten="bindings[].members" \
-    --filter="bindings.role:$ROLE_TO_FIND" \
+    --filter="bindings.role:$ROLE_TO_FIND AND NOT bindings.members:serviceAccount:service-*" \
     --format="csv[no-heading](bindings.members)")
 
 # 3.2 Check if the gcloud command was successful
