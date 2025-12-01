@@ -2,6 +2,14 @@
 
 Automate the process of managing GCP. In this version (v1.1.0) you can store the owners of GCP-projects in dedicated files!
 
+## Quick links
+
+- [Manual](https://github.com/johnsilvell/gcloud-owner?tab=readme-ov-file#how-to-use)
+    - [Requirements](https://github.com/johnsilvell/gcloud-owner?tab=readme-ov-file#how-to-use)
+- [Debugging](https://github.com/johnsilvell/gcloud-owner?tab=readme-ov-file#debugging)
+- [Version history](https://github.com/johnsilvell/gcloud-owner?tab=readme-ov-file#requiremenets)
+- [Updates](https://github.com/johnsilvell/gcloud-owner?tab=readme-ov-file#upcoming-updates)
+
 ## How to use
 
 1. Download [gc-owner.sh](./gc-owner.sh) and make it executable with ```chmod +x gc-owner.sh``` in your terminal in the same directory as the file.
@@ -40,6 +48,12 @@ To use this script you need to have the correct permissions to use the script. T
 
 - ```roles/resourcemanager.projectIamAdmin```- Your user account has the permission to use ```gcloud projects get-iam-policy```.
 
+## Debugging
+
+The script will of course always be tested during development but for extra security this repo uses GitHub Actions for CI/CD-integration. However, due to security vulnerabilities we currently only do lint-testing in its current state since we don't want to have our Google Cloud credidentials uploaded on GitHub.
+
+If you would like to review or analyze our current GitHub Actions-setup please check [.github/workflows](./github/workflows).
+
 ## Version history
 
 Here is a table of all the versions published so far...
@@ -47,12 +61,11 @@ Here is a table of all the versions published so far...
 | Version | Published | Comment |
 | ------- | --------- | ------- |
 | v1.0.0 | 28th november 2025 | The first version. Checks for the owners and prints them in the terminal. |
-| v1.1.0 | TBA | Will allow the user to get the information in a dedicated txt-file. |
+| v1.1.0 | 1st december 2025 | Will allow the user to get the information in a dedicated txt-file. |
 | v1.1.X | TBA | TBA |
 
 ## Upcoming updates
 
-- Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Monday 01 december 09:06
+> Last updated: Monday 01 december 11:00
