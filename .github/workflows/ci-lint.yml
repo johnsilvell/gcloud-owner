@@ -28,7 +28,19 @@ jobs:
         run: |
           # Find all .sh files, exclude those in .github directory
           FILES=$(find . -type f -name "*.sh" ! -path "./.github/*")
-          # Create a GitHub Actions output variable"
+
+          # Log the found files (for debugging purposes)
+          echo "--- Found .sh-files: ---"
+
+          if [ -z "$FILES" ]; then
+            echo "No .sh-files found."
+          else
+            echo "$FILES"
+          fi
+
+          echo "-----------------------"
+
+          # Create a GitHub Actions output variable
           echo "scripts=${FILES}" >> $GITHUB_OUTPUT
       
       # 2.3 Run ShellCheck on the found files
@@ -39,6 +51,17 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           path: ${{ steps.files.outputs.scripts }}
           # Set the level of warnings that should be seen as errors
-          severity: warning
+          fail_level: warning
           # Exclude specific ShellCheck codes if needed (like SC2086)
           # exclude: SC2086
+
+          # Set the format for ShellCheck to "GitHub Actions Log Format"
+          reporter: github-pr-check
+          # Add a flag to indicate approval
+          # NB: If ShellCheck finds errors this job will fail!
+          fail_on_error: true
+
+      # 2.4 Add a conformation step if no issues were found (Runs only if ShellCheck passes)
+      - name: Linting Passed
+        run: | 
+          echo "All .sh-scripts passed ShellCheck linting!"
