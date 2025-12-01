@@ -32,9 +32,16 @@ OWNER_MEMBERS=$(gcloud projects get-iam-policy "$PROJECT_ID" \
     --format="csv[no-heading](bindings.members)")
 
 # 3.2 Check if the gcloud command was successful
-if [ $? -ne 0]; then
-    echo "ERROR: Failed to execute gcloud command. Please check if the permissions for project $PROJECT_ID."
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to execute gcloud command. Please check the permissions for project $PROJECT_ID." >&2
     exit 1
+fi
+
+# 3.3 Display the results
+if [ -z "$OWNER_MEMBERS" ]; then
+    echo "No members found with the '$ROLE_TO_FIND' role (Google Service Agents excluded)."
+else
+    echo "$OWNER_MEMBERS"
 fi
 
 echo "-----------------------------------------------"
