@@ -1,6 +1,6 @@
-# gcloud-owner (v1.1.0)
+# gcloud-owner (v1.1.1)
 
-Automate the process of managing GCP. In this version (v1.1.0) you can store the owners of GCP-projects in dedicated files!
+Automate the process of managing GCP. From version 1.1.0 you can store the owners of GCP-projects in dedicated files!
 
 ## Quick links
 
@@ -62,11 +62,11 @@ Here is a table of all the versions published so far...
 | ------- | --------- | ------- |
 | v1.0.0 | 28th november 2025 | The first version. Checks for the owners and prints them in the terminal. |
 | v1.1.0 | 1st december 2025 | Will allow the user to get the information in a dedicated txt-file. |
-| v1.1.1 | 2nd december 2025 | Added a filter to remove potential "Service Agents" from the search results. General stability improvements. |
-| v1.1.X | TBA | TBA |
+| v1.1.1 | 1st december 2025 | Added a filter to remove potential "Service Agents" from the search results. General stability improvements. |
+| v1.1.2 | TBA | Store the information for future export to a database. |
 
 ## Upcoming updates
 
 - Even more automation features!
 
-> Last updated: Monday 01 december 13:22
+> Last updated: Monday 01 december 15:20
