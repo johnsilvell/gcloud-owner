@@ -47,12 +47,11 @@ Here is a table of all the versions published so far...
 | Version | Published | Comment |
 | ------- | --------- | ------- |
 | v1.0.0 | 28th november 2025 | The first version. Checks for the owners and prints them in the terminal. |
-| v1.1.0 | TBA | Will allow the user to get the information in a dedicated txt-file. |
+| v1.1.0 | 1st december 2025 | Will allow the user to get the information in a dedicated txt-file. |
 | v1.1.X | TBA | TBA |
 
 ## Upcoming updates
 
-- Store the owners in dedicated files.
 - Even more automation features!
 
-> Last updated: Monday 01 december 09:06
+> Last updated: Monday 01 december 10:19
