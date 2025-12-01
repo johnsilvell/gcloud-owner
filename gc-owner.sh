@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 #  1. Control that a PROJECT_ID is provided as an argument
 if [ -z "$1" ]; then
@@ -25,10 +26,17 @@ echo "-----------------------------------------------"
 IAM_POLICY=$(gcloud projects get-iam-policy "$PROJECT_ID" --format=json)
 
 # 3. Parse the IAM policy to find members with the specified role
-gcloud projects get-iam-policy "$PROJECT_ID" \
+OWNER_MEMBERS=$(gcloud projects get-iam-policy "$PROJECT_ID" \
     --flatten="bindings[].members" \
     --filter="bindings.role:$ROLE_TO_FIND" \
-    --format="csv[no-heading](bindings.members)"
+    --format="csv[no-heading](bindings.members)")
+
+# 3.2 Check if the gcloud command was successful
+if [ $? -ne 0]; then
+    echo "ERROR: Failed to execute gcloud command. Please check if the permissions for project $PROJECT_ID."
+    exit 1
+fi
+
 echo "-----------------------------------------------"
 echo 
 
