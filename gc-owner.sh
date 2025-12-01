@@ -65,16 +65,7 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
     {
         echo "Results for project: $PROJECT_ID"
         echo "-----------------------------------------------"
-        if [ -z "$IAM_POLICY" ]; then
-            echo "No members found with the '$ROLE_TO_FIND' role."
-        else
-            echo "Members with the '$ROLE_TO_FIND' role in project '$PROJECT_ID':"
-            echo
-            gcloud projects get-iam-policy "$PROJECT_ID" \
-                --flatten="bindings[].members" \
-                --filter="bindings.role:$ROLE_TO_FIND" \
-                --format="csv[no-heading](bindings.members)"
-        fi
+        echo "$OWNER_MEMBERS"
         echo
         echo "Time of extraction: ${TIMESTAMP}"
         echo "-----------------------------------------------"
@@ -82,5 +73,5 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
     
     echo "Results succesfully saved to $FILENAME."
 else
-    echo "Results not saved to a file. Finished."
+    echo "Results NOT saved to a file. Finished."
 fi
