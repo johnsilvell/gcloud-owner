@@ -72,11 +72,3 @@ fi
 
 print("Hello World")
 
-hello = 1
-
-if hello == 0;
-    print(hello)
-elif hello == 1;
-    print("Hello")
-else
-    print("Goodbye")
