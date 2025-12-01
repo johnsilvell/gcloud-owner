@@ -53,22 +53,55 @@ save_to_file=$(echo "$save_to_file" | tr '[:upper:]' '[:lower:]')
 
 if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
 
-    # Create a filename based on the project ID
-    FILENAME="${PROJECT_ID}_owners.txt"
-
-    echo "Saving results to $FILENAME..."
-
-    # Use a Block Redirect to write all output to the file at once
-    {
-        echo "Results for project: $PROJECT_ID"
-        echo "-----------------------------------------------"
-        echo "$OWNER_MEMBERS"
+    # 4.1 Create a directory for output files if it doesn't exist
+    REPORT_DIR="${PROJECT_ID}_reports_$(date +%Y%m%d)"
+    
+    # 4.1.2 Check if directory already exists
+    if [ -d "$REPORT_DIR" ]; then
+        echo "Directory $REPORT_DIR already exists. Using existing directory."
         echo
+    else
+        mkdir -p "$REPORT_DIR"
+        echo "Created directory $REPORT_DIR for output files."
+        echo
+    fi
+
+    # 4.2 Create a filename based on the project ID
+    REPORT_FILENAME="$REPORT_DIR/${PROJECT_ID}_owners.txt"
+
+    echo "Saving results to $REPORT_FILENAME..."
+    echo "-----------------------------------------------"
+    echo
+
+    # 4.3 Use a Block Redirect to write all output to the file at once
+    {
+        echo "IAM Owner Report for project: $PROJECT_ID"
         echo "Time of extraction: ${TIMESTAMP}"
         echo "-----------------------------------------------"
-    } > "$FILENAME"
+        echo "Members found with the '$ROLE_TO_FIND' role (Google Service Agents excluded):"
+        echo "$OWNER_MEMBERS"
+        echo
+        echo "-----------------------------------------------"
+    } > "$REPORT_FILENAME"
     
-    echo "Results succesfully saved to $FILENAME."
+    echo "Results succesfully saved to $REPORT_FILENAME."
+    echo
+
+    # 4.4 Store raw data as CSV
+    REPORT_CSV_FILENAME="$REPORT_DIR/${PROJECT_ID}_raw_data.csv"
+    echo "Saving raw data to $REPORT_CSV_FILENAME..."
+    echo "-----------------------------------------------"
+    echo
+
+    # 4.4.1 Write raw data to CSV file
+    {
+        echo "Member_Indentifier"
+        echo "$OWNER_MEMBERS"
+    } > "$REPORT_CSV_FILENAME"
+
+    echo "Raw data succesfully saved to $REPORT_CSV_FILENAME."
+    echo
+
 else
     echo "Results NOT saved to a file. Finished."
 fi
