@@ -38,7 +38,7 @@ jobs:
             echo "$FILES"
           fi
 
-          echo "-----------------------"
+          echo "------------------------"
 
           # Create a GitHub Actions output variable
           echo "scripts=${FILES}" >> $GITHUB_OUTPUT
