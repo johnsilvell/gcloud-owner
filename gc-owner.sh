@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 #  1. Control that a PROJECT_ID is provided as an argument
 if [ -z "$1" ]; then
@@ -21,14 +22,25 @@ echo "Searching for members with the '$ROLE_TO_FIND' role in project '$PROJECT_I
 echo
 echo "-----------------------------------------------"
 
-# 2. Fetch the IAM policy for the specified project
-IAM_POLICY=$(gcloud projects get-iam-policy "$PROJECT_ID" --format=json)
-
-# 3. Parse the IAM policy to find members with the specified role
-gcloud projects get-iam-policy "$PROJECT_ID" \
+# 2. Parse the IAM policy to find members with the specified role
+OWNER_MEMBERS=$(gcloud projects get-iam-policy "$PROJECT_ID" --format=json \
     --flatten="bindings[].members" \
-    --filter="bindings.role:$ROLE_TO_FIND" \
-    --format="csv[no-heading](bindings.members)"
+    --filter="bindings.role:$ROLE_TO_FIND AND NOT bindings.members:serviceAccount:service-*" \
+    --format="csv[no-heading](bindings.members)")
+
+# 2.2 Check if the gcloud command was successful
+if [ $? -ne 0 ]; then
+    echo "ERROR: Failed to execute gcloud command. Please check the permissions for project $PROJECT_ID." >&2
+    exit 1
+fi
+
+# 2.3 Display the results
+if [ -z "$OWNER_MEMBERS" ]; then
+    echo "No members found with the '$ROLE_TO_FIND' role (Google Service Agents excluded)."
+else
+    echo "$OWNER_MEMBERS"
+fi
+
 echo "-----------------------------------------------"
 echo 
 
@@ -50,16 +62,7 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
     {
         echo "Results for project: $PROJECT_ID"
         echo "-----------------------------------------------"
-        if [ -z "$IAM_POLICY" ]; then
-            echo "No members found with the '$ROLE_TO_FIND' role."
-        else
-            echo "Members with the '$ROLE_TO_FIND' role in project '$PROJECT_ID':"
-            echo
-            gcloud projects get-iam-policy "$PROJECT_ID" \
-                --flatten="bindings[].members" \
-                --filter="bindings.role:$ROLE_TO_FIND" \
-                --format="csv[no-heading](bindings.members)"
-        fi
+        echo "$OWNER_MEMBERS"
         echo
         echo "Time of extraction: ${TIMESTAMP}"
         echo "-----------------------------------------------"
@@ -67,5 +70,5 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
     
     echo "Results succesfully saved to $FILENAME."
 else
-    echo "Results not saved to a file. Finished."
+    echo "Results NOT saved to a file. Finished."
 fi
