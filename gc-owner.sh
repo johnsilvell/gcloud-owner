@@ -69,6 +69,3 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
 else
     echo "Results not saved to a file. Finished."
 fi
-
-print("Hello World")
-
