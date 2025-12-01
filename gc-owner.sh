@@ -69,3 +69,14 @@ if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
 else
     echo "Results not saved to a file. Finished."
 fi
+
+print("Hello World")
+
+hello = 1
+
+if hello == 0;
+    print(hello)
+elif hello == 1;
+    print("Hello")
+else
+    print("Goodbye")
