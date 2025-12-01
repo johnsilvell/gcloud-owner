@@ -1,5 +1,6 @@
-# Since the script now can generate .txt-files they shall be ignored by Git
+# Since the script now can generate .txt- and .csv-files they shall be ignored by Git
 *.txt
+*.csv
 
 # Don't ignore the example files
 !/examples/*.txt
