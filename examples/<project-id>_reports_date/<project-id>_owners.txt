@@ -1,0 +1,8 @@
+Results for project: <PROJECT-ID>
+-----------------------------------------------
+Members with the 'roles/owner' role in project '<PROJECT-ID>':
+
+user:john.doe@example.com
+
+Time of extraction: YYYY-MM-DD [time]
+-----------------------------------------------

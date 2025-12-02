@@ -3,4 +3,5 @@
 *.csv
 
 # Don't ignore the example files
-!/examples/*.txt
+!/examples/<project-id>_reports_date/*.txt
+!/examples/<project-id>_reports_date/*.csv
