@@ -12,6 +12,29 @@ PROJECT_ID=$1
 echo
 echo "Setting project to: $PROJECT_ID"
 
+# 1.1 Verify that the project exists and is accessible
+echo "Verifying project existance and status..."
+echo "-----------------------------------------------"
+
+# 1.1.2 Try to describe the project
+gcloud projects describe "$PROJECT_ID" --format="value(lifecycleState)" -q > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "ERROR: Project '$PROJECT_ID' does not exist or you do not have access to it." >&2
+    exit 1
+fi
+
+# 1.1.3 Get project status
+PROJECT_STATUS=$(gcloud projects describe "$PROJECT_ID" --format="value(lifecycleState)")
+
+# 1.1.4 Check project status
+if [[ "$PROJECT_STATUS" != "ACTIVE" ]]; then
+    echo "WARNING: Project '$PROJECT_ID' is not active. Current status: $PROJECT_STATUS" 
+    echo "Aborting IAM search." >&2
+    exit 1
+fi
+
+echo "Project verified. State: ACTIVE"
+
 ROLE_TO_FIND="roles/owner"
 
 # Get the current timestamp
@@ -25,8 +48,9 @@ echo "-----------------------------------------------"
 # 2. Parse the IAM policy to find members with the specified role
 OWNER_MEMBERS=$(gcloud projects get-iam-policy "$PROJECT_ID" --format=json \
     --flatten="bindings[].members" \
-    --filter="bindings.role:$ROLE_TO_FIND AND NOT bindings.members:serviceAccount:service-*" \
-    --format="csv[no-heading](bindings.members)")
+    --filter="bindings.role:$ROLE_TO_FIND" \
+    --format="csv[no-heading](bindings.members)" | \
+    grep "^user:")
 
 # 2.2 Check if the gcloud command was successful
 if [ $? -ne 0 ]; then
@@ -53,22 +77,51 @@ save_to_file=$(echo "$save_to_file" | tr '[:upper:]' '[:lower:]')
 
 if [[ "$save_to_file" == "y" || "$save_to_file" == "yes" ]]; then
 
-    # Create a filename based on the project ID
-    FILENAME="${PROJECT_ID}_owners.txt"
-
-    echo "Saving results to $FILENAME..."
-
-    # Use a Block Redirect to write all output to the file at once
-    {
-        echo "Results for project: $PROJECT_ID"
-        echo "-----------------------------------------------"
-        echo "$OWNER_MEMBERS"
+    # 4.1 Create a directory for output files if it doesn't exist
+    REPORT_DIR="${PROJECT_ID}_reports_$(date +%Y%m%d)"
+    
+    # 4.1.2 Check if directory already exists
+    if [ -d "$REPORT_DIR" ]; then
+        echo "> Directory $REPORT_DIR already exists. Using existing directory."
         echo
+    else
+        mkdir -p "$REPORT_DIR"
+        echo "> Created directory $REPORT_DIR for output files."
+        echo
+    fi
+
+    # 4.2 Create a filename based on the project ID
+    REPORT_FILENAME="$REPORT_DIR/${PROJECT_ID}_owners.txt"
+
+    echo "-----------------------------------------------"
+    echo "> Saving results to $REPORT_FILENAME"
+
+    # 4.3 Use a Block Redirect to write all output to the file at once
+    {
+        echo "IAM Owner Report for project: $PROJECT_ID"
         echo "Time of extraction: ${TIMESTAMP}"
         echo "-----------------------------------------------"
-    } > "$FILENAME"
-    
-    echo "Results succesfully saved to $FILENAME."
+        echo "Members found with the '$ROLE_TO_FIND' role (Google Service Agents excluded):"
+        echo "$OWNER_MEMBERS"
+        echo
+        echo "-----------------------------------------------"
+    } > "$REPORT_FILENAME"
+
+    # 4.4 Store raw data as CSV
+    REPORT_CSV_FILENAME="$REPORT_DIR/${PROJECT_ID}_raw_data.csv"
+    echo "> Saving raw data to $REPORT_CSV_FILENAME"
+    echo "-----------------------------------------------"
+    echo
+
+    # 4.4.1 Write raw data to CSV file
+    {
+        echo "Member_Indentifier"
+        echo "$OWNER_MEMBERS"
+    } > "$REPORT_CSV_FILENAME"
+
+    echo "Data saved successfully in ${REPORT_DIR}!"
+    echo
+
 else
     echo "Results NOT saved to a file. Finished."
 fi
