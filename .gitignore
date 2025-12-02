@@ -1,5 +1,14 @@
-# Since the script now can generate .txt-files they shall be ignored by Git
+# Since the script now can generate .txt- and .csv-files they shall be ignored by Git
 *.txt
+*.csv
+
+# Other unecessary files to ignore
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
 
 # Don't ignore the example files
-!/examples/*.txt
+!/examples/<project-id>_reports_date/*.txt
+!/examples/<project-id>_reports_date/*.csv
