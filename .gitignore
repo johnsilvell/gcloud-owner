@@ -2,6 +2,13 @@
 *.txt
 *.csv
 
+# Other unecessary files to ignore
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+
 # Don't ignore the example files
 !/examples/<project-id>_reports_date/*.txt
 !/examples/<project-id>_reports_date/*.csv
